@@ -1,0 +1,16 @@
+# Étape 1 : Build
+FROM node:latest
+
+WORKDIR /app
+
+COPY ./next-project/package*.json ./
+
+COPY ./next-project/ .
+
+RUN npm ci
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
