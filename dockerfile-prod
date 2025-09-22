@@ -3,8 +3,6 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY ./next-project/package*.json ./
-
 COPY ./next-project/ .
 
 RUN npm ci

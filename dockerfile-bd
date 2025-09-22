@@ -1,0 +1,9 @@
+# Use the latest LTS version of Node.js
+FROM mysql:latest
+
+# Copy custom SQL scripts to initialize the database (optional)
+# These scripts will be executed when the container starts for the first time
+COPY ./init.sql /docker-entrypoint-initdb.d/
+
+# Expose the default MySQL port
+EXPOSE 3306
