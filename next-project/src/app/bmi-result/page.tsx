@@ -100,28 +100,46 @@ export default function BMIPage() {
                 Back to Home
             </a>
             <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>BMI Details</h2>
-            <table style={{ borderCollapse: "collapse", minWidth: "350px" }}>
+            <table
+                style={{
+                    borderCollapse: "separate",
+                    borderSpacing: 0,
+                    minWidth: "400px",
+                    boxShadow: "0 2px 12px rgba(0,0,0,0.18)",
+                    borderRadius: "12px",
+                    overflow: "hidden",
+                    background: "#18181b",
+                    marginBottom: "2rem",
+                    color: "#f4f4f5"
+                }}
+            >
                 <thead>
-                    <tr>
-                        <th style={{ border: "1px solid #ccc", padding: "8px" }}>Nickname</th>
-                        <th style={{ border: "1px solid #ccc", padding: "8px" }}>BMI</th>
-                        <th style={{ border: "1px solid #ccc", padding: "8px" }}>Height</th>
-                        <th style={{ border: "1px solid #ccc", padding: "8px" }}>Weight</th>
+                    <tr style={{ background: "#27272a" }}>
+                        <th style={{ color: "#a5b4fc", padding: "14px 16px", fontWeight: 600, border: "none", textAlign: "left" }}>Nickname</th>
+                        <th style={{ color: "#a5b4fc", padding: "14px 16px", fontWeight: 600, border: "none", textAlign: "left" }}>BMI</th>
+                        <th style={{ color: "#a5b4fc", padding: "14px 16px", fontWeight: 600, border: "none", textAlign: "left" }}>Height</th>
+                        <th style={{ color: "#a5b4fc", padding: "14px 16px", fontWeight: 600, border: "none", textAlign: "left" }}>Weight</th>
                     </tr>
                 </thead>
                 <tbody>
                     {allBmi && allBmi.length > 0 ? (
                         allBmi.map((item, idx) => (
-                            <tr key={idx}>
-                                <td style={{ border: "1px solid #ccc", padding: "8px" }}>{item.nickname ?? "N/A"}</td>
-                                <td style={{ border: "1px solid #ccc", padding: "8px" }}>{item.bmi ?? "N/A"}</td>
-                                <td style={{ border: "1px solid #ccc", padding: "8px" }}>{item.height ?? "N/A"}</td>
-                                <td style={{ border: "1px solid #ccc", padding: "8px" }}>{item.weight ?? "N/A"}</td>
+                            <tr
+                                key={idx}
+                                style={{
+                                    background: idx % 2 === 0 ? "#23232b" : "#18181b",
+                                    transition: "background 0.2s"
+                                }}
+                            >
+                                <td style={{ padding: "12px 16px", border: "none", borderBottom: "1px solid #27272a" }}>{item.nickname ?? "N/A"}</td>
+                                <td style={{ padding: "12px 16px", border: "none", borderBottom: "1px solid #27272a" }}>{item.bmi ?? "N/A"}</td>
+                                <td style={{ padding: "12px 16px", border: "none", borderBottom: "1px solid #27272a" }}>{item.height ?? "N/A"}</td>
+                                <td style={{ padding: "12px 16px", border: "none", borderBottom: "1px solid #27272a" }}>{item.weight ?? "N/A"}</td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={4} style={{ border: "1px solid #ccc", padding: "8px", textAlign: "center" }}>
+                            <td colSpan={4} style={{ padding: "16px", textAlign: "center", color: "#888" }}>
                                 No BMI records found.
                             </td>
                         </tr>
