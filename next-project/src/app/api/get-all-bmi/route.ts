@@ -11,24 +11,14 @@ export async function getServerSideProps() {
   return db;
 }
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const { uuid } = await req.json();
-
-    if (!uuid) {
-      return NextResponse.json({ error: "Missing fields." }, { status: 400 });
-    }
-
     const db = await getServerSideProps();
     
-    const [rows] = await db.execute<any[]>("SELECT * FROM bmi_records WHERE uuid = ?", [uuid]);
-    const record = rows[0].bmi;
+    const [rows] = await db.execute<any[]>("SELECT * FROM bmi_records ORDER BY date LIMIT 10");
+    const records = JSON.stringify(rows);
 
-    if (!record) {
-      return NextResponse.json({ error: "Record not found." }, { status: 404 });
-    }
-
-    return NextResponse.json({ bmi:record }, { status: 200 });
+    return NextResponse.json({ records:records }, { status: 200 });
 
   } catch (err) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });

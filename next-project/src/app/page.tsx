@@ -5,7 +5,7 @@ export default function Home() {
         Welcome to the BMI Calculator!
       </h1>
       <p className="text-lg text-gray-600 text-center mb-4">
-        Enter your nickname, weight, and height to calculate your Body Mass Index.
+        Enter your nickname, weight, and height to calculate your Body Mass Index. pipi
       </p>
       <form className="flex flex-col gap-4 w-full max-w-xs" action="/api/send-bmi" method="POST">
       <div>
