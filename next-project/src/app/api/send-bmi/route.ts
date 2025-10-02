@@ -40,8 +40,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.redirect(`${process.env.NEXT_PUBLIC_ROOT_URL}/bmi-result?uuid=${uuid}`);
 
     } catch (err) {
-      console.error("Error inserting data:", err);
-      return NextResponse.json({ error: "Database error" }, { status: 500 });
+        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_ROOT_URL}?errorCode=1`);
     }
 
   } catch (err) {

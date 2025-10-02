@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   try {
     const db = await getServerSideProps();
     
-    const [rows] = await db.execute<any[]>("SELECT * FROM bmi_records ORDER BY date LIMIT 10");
+    const [rows] = await db.execute<any[]>("SELECT * FROM bmi_records ORDER BY date DESC LIMIT 10");
     const records = JSON.stringify(rows);
 
     return NextResponse.json({ records:records }, { status: 200 });

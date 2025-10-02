@@ -7,5 +7,5 @@ CREATE TABLE bmi_records (
     weight INT NOT NULL,
     height INT NOT NULL,
     bmi DECIMAL(4,1) NOT NULL,
-    date DATE NOT NULL
+    date DATETIME NOT NULL
 );

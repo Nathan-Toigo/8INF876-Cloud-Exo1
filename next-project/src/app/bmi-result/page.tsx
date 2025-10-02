@@ -4,24 +4,23 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 type Record = {
-  uuid: string;
-  nickname: string;
-  weight: number;
-  height: number;
-  bmi: string;
-  date: string;
+uuid: string;
+nickname: string;
+weight: number;
+height: number;
+bmi: string;
+date: string;
 };
 
 export default function BMIPage() {
     const searchParams = useSearchParams()
     const uuid = searchParams.get('uuid')
 
-    const [nickname, setNickname] = useState<string | null>(null)
     const [bmi, setBmi] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const allBmi = loadAllBmi();
-
+    allBmi?.reverse();
 
     useEffect(() => {
         if (!uuid) {
@@ -31,7 +30,9 @@ export default function BMIPage() {
 
         const fetchData = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-bmi`, {
+                const url = process.env.NEXT_PUBLIC_API_URL + "/get-bmi";
+                console.log("Fetching from URL get bmi:", url);
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -41,10 +42,10 @@ export default function BMIPage() {
                 })
 
                 const data = await res.json()
-                setNickname(data.nickname ?? null)
-                setBmi(data.bmi)
+                setBmi(data.bmi ?? null)
+
             } catch (err) {
-                setError("Error fetching BMI data.")
+                setError("Error : " + err)
             } finally {
                 setLoading(false)
             }
@@ -127,7 +128,11 @@ export default function BMIPage() {
                             <tr
                                 key={idx}
                                 style={{
-                                    background: idx % 2 === 0 ? "#23232b" : "#18181b",
+                                    background: uuid === item.uuid
+                                        ? "#3b82f6" // Highlight color for selected UUID
+                                        : idx % 2 === 0
+                                            ? "#23232b"
+                                            : "#18181b",
                                     transition: "background 0.2s"
                                 }}
                             >
@@ -156,7 +161,9 @@ function loadAllBmi(): Record[] | null {
     useEffect(() => {
         const fetchAllBmi = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-all-bmi`, {
+                const url = process.env.NEXT_PUBLIC_API_URL + "/get-all-bmi";
+                console.log("Fetching from URL all bmi:", url);
+                const res = await fetch(url, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
