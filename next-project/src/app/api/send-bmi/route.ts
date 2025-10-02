@@ -40,7 +40,10 @@ export async function POST(req: NextRequest) {
         return NextResponse.redirect(`${process.env.NEXT_PUBLIC_ROOT_URL}/bmi-result?uuid=${uuid}`);
 
     } catch (err) {
-        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_ROOT_URL}?errorCode=1`);
+      const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL ?? "";
+      const params = new URLSearchParams({ errorCode: "1" });
+
+      return NextResponse.redirect(`${baseUrl}${params.toString() ? "?" + params.toString() : ""}`);
     }
 
   } catch (err) {
